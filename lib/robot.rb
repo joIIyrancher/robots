@@ -2,11 +2,12 @@ WEIGHT_CAPACITY = 250
 DEFAULT_ATTACK = 5
 
 class Robot
-  attr_reader :position, :items, :health
+  attr_reader :position, :items, :health, :damage
   attr_accessor :equipped_weapon
 
   def initialize
     @health = 100
+    @damage = DEFAULT_ATTACK
     @equipped_weapon = nil
     @position = [0,0]
     @items = []
@@ -53,9 +54,7 @@ class Robot
 
   # Robot-related Actions
   def attack(other_robot)
-    @equipped_weapon == nil ? other_robot.wound(DEFAULT_ATTACK) : @equipped_weapon.hit(other_robot)      
+    @equipped_weapon == nil ? other_robot.wound(damage) : @equipped_weapon.hit(other_robot)      
   end
-
-  # Weapon-related Actions
 
 end
