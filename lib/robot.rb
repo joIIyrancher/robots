@@ -1,7 +1,15 @@
+require_relative 'weapon'
+
 WEIGHT_CAPACITY = 250
 DEFAULT_ATTACK = 5
 
 class Robot
+  class RobotAlreadyDeadError < StandardError
+  end
+
+  class UnattackableEnemy < StandardError
+  end
+  
   attr_reader :position, :items, :health, :damage
   attr_accessor :equipped_weapon
 
@@ -48,13 +56,25 @@ class Robot
   end
 
   def heal(points)
+    heal!
     @health += points
     @health = 100 if @health > 100
+    @health
+  end
+
+  def heal!
+    raise RobotAlreadyDeadError, "Cannot heal a dead robot" if @health <= 0
   end
 
   # Robot-related Actions
   def attack(other_robot)
-    @equipped_weapon == nil ? other_robot.wound(damage) : @equipped_weapon.hit(other_robot)      
+    attack!(other_robot)
+    @equipped_weapon == nil ? other_robot.wound(damage) : @equipped_weapon.hit(other_robot)
+    other_robot.health
+  end
+
+  def attack!(enemy)
+    raise UnattackableEnemy, "Cannot attack non-robots" unless enemy.is_a? Robot
   end
 
 end

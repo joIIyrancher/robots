@@ -1,3 +1,5 @@
+require_relative 'item'
+
 class Weapon < Item
   attr_reader :damage
   def initialize(name, weight, damage)
