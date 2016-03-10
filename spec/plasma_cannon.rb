@@ -1,0 +1,9 @@
+PLASAMA_CANNON_NAME = "Plasma Cannon"
+PLASAMA_CANNON_WEIGHT = 200
+PLASAMA_CANNON_DAMAGE = 55
+
+class PlasmaCannon < Weapon
+  def initialize
+    super(PLASAMA_CANNON_NAME, PLASAMA_CANNON_WEIGHT, PLASAMA_CANNON_DAMAGE)
+  end
+end
